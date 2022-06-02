@@ -1,7 +1,9 @@
 package modelo.DAO;
 
 import modelo.dto.cliente;
-import modelo.services.clienteService;
+
+import modelo.dto.entrenador;
+import modelo.services.entrenadorService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,26 +14,25 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class clienteDAO implements clienteService {
+public class entrenadorDAO implements entrenadorService {
+    public static final String SQL_CONSULTA = "SELECT id, nombre, apellidoo, email, edad, peso, estatura FROM entrenador";
 
-    public static final String SQL_CONSULTA = "SELECT id, nombre, apellido, email, password, edad, peso, estatura FROM clientes";
+    public static final String SQL_INSERTAR = "INSERT INTO clientes VALUES (?,?,?,?,?,?,?)";
 
-    public static final String SQL_INSERTAR = "INSERT INTO clientes VALUES (?,?,?,?,?,?,?,?)";
-
-    public static final String SQL_ACTUALIZAR = "UPDATE clientes SET nombre = ?, apellido = ?, email = ?, password = ?,edad = ?, peso = ?, estatura = ? WHERE id = ?";
+    public static final String SQL_ACTUALIZAR = "UPDATE clientes SET nombre = ?, apellido = ?, email = ?, edad = ?, peso = ?, estatura = ? WHERE id = ?";
 
     public static final String SQL_ELIMINAR = "DELETE FROM clientes WHERE id = ?";
 
     public static final String SQL_CONSULTAR_BY_ID = "SELECT nombre, apellido, email, edad, peso, estatura FROM clientes WHERE id = ?";
 
     @Override
-    public List<cliente> consultar() {
+    public List<entenador> consultar() {
 
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
-        cliente cliente = null;
-        List<cliente> mascotas = new ArrayList<>();
+        entrenador ent = null;
+        List<entrenador> entrenador = new ArrayList<>();
         try {
             con = ConexionBD.getConnection();
             stmt = con.prepareStatement(SQL_CONSULTA);
@@ -41,12 +42,11 @@ public class clienteDAO implements clienteService {
                 String nombre = res.getString("nombre");
                 String apellido = res.getString("apellido");
                 String email = res.getString("email");
-                String password = res.getString("password");
                 String edad = res.getString("edad");
                 String peso = res.getString("peso");
                 String estatura = res.getString("estatura");
-                cliente  = new cliente(nombre, apellido, email, password, edad, peso, estatura);
-                mascotas.add(cliente);
+                entrenador  = new entrenador(nombre, apellido, email, edad, peso, estatura);
+                entrenador.add(ent);
             }
         } catch (SQLException ex) {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,10 +74,9 @@ public class clienteDAO implements clienteService {
             stmt.setString(2, mascota.getNombre());
             stmt.setString(3, mascota.getApellido());
             stmt.setString(4, mascota.getEmail());
-            stmt.setString(5,mascota.getPassword());
-            stmt.setString(6, mascota.getEdad());
-            stmt.setDouble(7,mascota.getPeso());
-            stmt.setDouble(8, mascota.getEstatura());
+            stmt.setString(5, mascota.getEdad());
+            stmt.setDouble(6,mascota.getPeso());
+            stmt.setDouble(7, mascota.getEstatura());
 
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -106,10 +105,9 @@ public class clienteDAO implements clienteService {
             stmt.setString(2, user.getNombre());
             stmt.setString(3, user.getApellido());
             stmt.setString(4, user.getEmail());
-            stmt.setString(5,user.getPassword());
-            stmt.setString(6, user.getEdad());
-            stmt.setDouble(7, user.getPeso());
-            stmt.setDouble(8, user.getEstatura());
+            stmt.setString(5, user.getEdad());
+            stmt.setDouble(6, user.getPeso());
+            stmt.setDouble(7, user.getEstatura());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

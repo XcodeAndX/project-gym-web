@@ -9,6 +9,7 @@ public class cliente {
     private String Nombre;
     private String Apellido;
     private String email;
+    private String password;
     private String edad;
     private double peso;
     private double estatura;
@@ -19,18 +20,19 @@ public class cliente {
 
     }
 
-    public cliente( String nombre, String apellido, String email, int edad, double peso, double estatura, double imc) {
+    public cliente( String nombre, String apellido, String email, String password, String edad, double peso, double estatura, double imc) {
 
-        Nombre = nombre;
-        Apellido = apellido;
+        this.Nombre = nombre;
+        this.Apellido = apellido;
         this.email = email;
+        this.password = password
         this.edad = edad;
         this.peso = peso;
         this.estatura = estatura;
         this.imc = imc;
     }
 
-    public cliente(String nombre, String apellido, String email, String edad, String peso, String estatura) {
+    public cliente(String nombre, String apellido, String email, String password, String edad, String peso, String estatura) {
     }
 
     public String getId() {
@@ -63,6 +65,14 @@ public class cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEdad() {

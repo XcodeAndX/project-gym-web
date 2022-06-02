@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface entrenadorService {
     public List<entrenador> consultar();
-    public int crear(entrenador clienteDTO);
-    public int actualizar(entrenador clienteDTO);
-    public int eliminar(entrenador clienteDTO);
+    public int crear(entrenador entrenadorDTO);
+    public int actualizar(entrenador entrenadorDTO);
+    public int eliminar(entrenador entrenadorDTO);
 }
