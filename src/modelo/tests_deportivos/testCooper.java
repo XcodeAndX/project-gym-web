@@ -31,9 +31,12 @@ public class testCooper {
         this.kilometroReccorido = kilometroReccorido;
     }
 
+
     public int calcularTestCooper(){
         this.oxigenoMaximo = (22*this.kilometroReccorido)-11;
         return this.oxigenoMaximo;
     }
+
+
 
 }
