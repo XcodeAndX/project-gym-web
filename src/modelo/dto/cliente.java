@@ -5,23 +5,22 @@ import java.util.Objects;
 
 public class cliente {
 
-    private int id;
+    private String id;
     private String Nombre;
     private String Apellido;
     private String email;
-    private int edad;
+    private String edad;
     private double peso;
     private double estatura;
     private double imc;
 
 
     public cliente() {
-        Calendar fechaInicial = Calendar.getInstance();
-        Calendar fechaFinal = Calendar.getInstance();
+
     }
 
-    public cliente(int id, String nombre, String apellido, String email, int edad, double peso, double estatura, double imc) {
-        this.id = id;
+    public cliente( String nombre, String apellido, String email, int edad, double peso, double estatura, double imc) {
+
         Nombre = nombre;
         Apellido = apellido;
         this.email = email;
@@ -31,11 +30,14 @@ public class cliente {
         this.imc = imc;
     }
 
-    public int getId() {
+    public cliente(String nombre, String apellido, String email, String edad, String peso, String estatura) {
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -63,11 +65,11 @@ public class cliente {
         this.email = email;
     }
 
-    public int getEdad() {
+    public String getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(String edad) {
         this.edad = edad;
     }
 
@@ -85,6 +87,10 @@ public class cliente {
 
     public void setEstatura(double estatura) {
         this.estatura = estatura;
+    }
+
+    public void setImc(double imc) {
+        this.imc = imc;
     }
 
     @Override

@@ -14,15 +14,15 @@ import java.util.logging.Logger;
 
 public class clienteDAO implements clienteService {
 
-    public static final String SQL_CONSULTA = "SELECT id, nombre, fechaNacimiento, raza, color, propietario_numerodocumento FROM mascotas";
+    public static final String SQL_CONSULTA = "SELECT id, nombre, apellidoo, email, edad, peso, estatura FROM clientes";
 
-    public static final String SQL_INSERTAR = "INSERT INTO mascotas VALUES (?,?,?,?,?,?)";
+    public static final String SQL_INSERTAR = "INSERT INTO clientes VALUES (?,?,?,?,?,?,?)";
 
-    public static final String SQL_ACTUALIZAR = "UPDATE mascotas SET nombre = ?, fechaNacimiento = ?, raza = ?, color = ?, propietario_numerodocumento = ? WHERE id = ?";
+    public static final String SQL_ACTUALIZAR = "UPDATE clientes SET nombre = ?, apellido = ?, email = ?, edad = ?, peso = ?, estatura = ? WHERE id = ?";
 
-    public static final String SQL_ELIMINAR = "DELETE FROM mascotas WHERE id = ?";
+    public static final String SQL_ELIMINAR = "DELETE FROM clientes WHERE id = ?";
 
-    public static final String SQL_CONSULTAR_BY_ID = "SELECT nombre, fechanacimiento, raza, color, propietario_numerodocumento FROM mascotas WHERE id = ?";
+    public static final String SQL_CONSULTAR_BY_ID = "SELECT nombre, apellido, email, edad, peso, estatura FROM clientes WHERE id = ?";
 
     @Override
     public List<cliente> consultar() {
@@ -30,7 +30,7 @@ public class clienteDAO implements clienteService {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
-        cliente mascota = null;
+        cliente cliente = null;
         List<cliente> mascotas = new ArrayList<>();
         try {
             con = ConexionBD.getConnection();
@@ -39,12 +39,13 @@ public class clienteDAO implements clienteService {
             while (res.next()) {
                 String id = res.getString("id");
                 String nombre = res.getString("nombre");
-                String fechaNacimiento = res.getString("fechanacimiento");
-                String raza = res.getString("raza");
-                String color = res.getString("color");
-                String documentoPropietario = res.getString("propietario_numerodocumento");
-                mascota = new cliente(id, nombre, fechaNacimiento, raza, color, documentoPropietario);
-                mascotas.add(mascota);
+                String apellido = res.getString("apellido");
+                String email = res.getString("email");
+                String edad = res.getString("edad");
+                String peso = res.getString("peso");
+                String estatura = res.getString("estatura");
+                cliente  = new cliente(nombre, apellido, email, edad, peso, estatura);
+                mascotas.add(cliente);
             }
         } catch (SQLException ex) {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +55,7 @@ public class clienteDAO implements clienteService {
                 ConexionBD.close(stmt);
                 ConexionBD.close(con);
             } catch (SQLException ex) {
-                Logger.getLogger(PropietarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mascotas;
@@ -70,10 +71,12 @@ public class clienteDAO implements clienteService {
             stmt = con.prepareStatement(SQL_INSERTAR);
             stmt.setString(1, mascota.getId());
             stmt.setString(2, mascota.getNombre());
-            stmt.setString(3, mascota.getFechaNacimiento());
-            stmt.setString(4, mascota.getRaza());
-            stmt.setString(5, mascota.getColor());
-            stmt.setString(6, mascota.getDocumentoPropietario());
+            stmt.setString(3, mascota.getApellido());
+            stmt.setString(4, mascota.getEmail());
+            stmt.setString(5, mascota.getEdad());
+            stmt.setDouble(6,mascota.getPeso());
+            stmt.setDouble(7, mascota.getEstatura());
+
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -90,19 +93,20 @@ public class clienteDAO implements clienteService {
     }
 
     @Override
-    public int actualizar(cliente mascota) {
+    public int actualizar(cliente user) {
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             con = ConexionBD.getConnection();
             stmt = con.prepareStatement(SQL_ACTUALIZAR);
-            stmt.setString(1, mascota.getNombre());
-            stmt.setString(2, mascota.getFechaNacimiento());
-            stmt.setString(3, mascota.getRaza());
-            stmt.setString(4, mascota.getColor());
-            stmt.setString(5, mascota.getDocumentoPropietario());
-            stmt.setString(6, mascota.getId());
+            stmt.setString(1, user.getId());
+            stmt.setString(2, user.getNombre());
+            stmt.setString(3, user.getApellido());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, user.getEdad());
+            stmt.setDouble(6, user.getPeso());
+            stmt.setDouble(7, user.getEstatura());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -119,14 +123,14 @@ public class clienteDAO implements clienteService {
     }
 
     @Override
-    public int eliminar(cliente mascota) {
+    public int eliminar(cliente user) {
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             con = ConexionBD.getConnection();
             stmt = con.prepareStatement(SQL_ELIMINAR);
-            stmt.setString(1, mascota.getId());
+            stmt.setString(1, user.getId());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -152,15 +156,15 @@ public class clienteDAO implements clienteService {
             res = sen.executeQuery();
             res.absolute(1);//primer registro devuelto
             String nombre = res.getString("nombre");
-            String fechaNacimiento = res.getString("fechanacimiento");
-            String raza = res.getString("raza");
-            String color = res.getString("color");
-            String documentoPropietario = res.getString("propietario_numerodocumento");
+            String apellido = res.getString("apellido");
+            String email = res.getString("email");
+            String edad = res.getString("edad");
+            
             m.setNombre(nombre);
-            m.setFechaNacimiento(fechaNacimiento);
-            m.setRaza(raza);
-            m.setColor(color);
-            m.setDocumentoPropietario(documentoPropietario);
+            m.setApellido(apellido);
+            m.setEmail(email);
+            m.setEdad(edad);
+
         }
         catch (SQLException ex) {
             ex.printStackTrace(System.out);
