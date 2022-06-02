@@ -25,7 +25,7 @@ public class cliente {
         this.Nombre = nombre;
         this.Apellido = apellido;
         this.email = email;
-        this.password = password
+        this.password = password;
         this.edad = edad;
         this.peso = peso;
         this.estatura = estatura;
