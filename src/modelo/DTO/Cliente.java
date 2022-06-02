@@ -1,8 +1,8 @@
-package modelo;
+package modelo.DTO;
 
 import java.util.Calendar;
 
-public class cliente {
+public class Cliente {
 
     private int id;
     private String Nombre;
@@ -14,12 +14,12 @@ public class cliente {
     private double imc;
 
 
-    public cliente() {
+    public Cliente() {
         Calendar fechaInicial = Calendar.getInstance();
         Calendar fechaFinal = Calendar.getInstance();
     }
 
-    public cliente(int id, String nombre, String apellido, String email, int edad, double peso, double estatura, double imc) {
+    public Cliente(int id, String nombre, String apellido, String email, int edad, double peso, double estatura, double imc) {
         this.id = id;
         Nombre = nombre;
         Apellido = apellido;
@@ -89,6 +89,9 @@ public class cliente {
     public double getImc(){
             this.imc = peso/Math.pow(2, this.estatura);
         return imc;
+    }
 
+    public void setImc(double imc){
+        this.imc = imc;
     }
 }

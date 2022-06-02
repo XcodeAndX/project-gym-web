@@ -1,4 +1,4 @@
-package modelo;
+package modelo.DTO;
 
 import java.util.Objects;
 
@@ -63,9 +63,9 @@ public class entrenador extends persona{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this equals o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        entrenador that = (entrenador) o;
+        entrenador that = (Entrenador) o;
         return getId() == that.getId() && Objects.equals(getNombre(), that.getNombre()) && Objects.equals(getApellido(), that.getApellido()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword());
     }
 
