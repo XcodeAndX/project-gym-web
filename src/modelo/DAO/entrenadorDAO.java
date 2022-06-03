@@ -158,7 +158,7 @@ public class entrenadorDAO implements entrenadorService {
             String nombre = res.getString("nombre");
             String apellido = res.getString("apellido");
             String email = res.getString("email");
-            
+
 
             m.setNombre(nombre);
             m.setApellido(apellido);
