@@ -99,6 +99,8 @@ public class cliente {
         this.estatura = estatura;
     }
 
+
+
     public void setImc(double imc) {
         this.imc = imc;
     }
