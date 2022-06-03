@@ -2,7 +2,7 @@ package modelo.dto;
 
 import java.util.Objects;
 
-public class entrenador extends persona{
+public class entrenador{
 
     private int id;
     private String nombre;
@@ -19,6 +19,9 @@ public class entrenador extends persona{
         this.apellido = apellido;
         this.email = email;
         this.password = password;
+    }
+
+    public entrenador(String nombre, String apellido, String email, String password) {
     }
 
     public int getId() {

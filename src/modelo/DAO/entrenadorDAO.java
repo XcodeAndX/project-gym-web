@@ -15,24 +15,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class entrenadorDAO implements entrenadorService {
-    public static final String SQL_CONSULTA = "SELECT id, nombre, apellidoo, email, edad, peso, estatura FROM entrenador";
+    public static final String SQL_CONSULTA = "SELECT id, nombre, apellido, email, password FROM entrenador";
 
-    public static final String SQL_INSERTAR = "INSERT INTO clientes VALUES (?,?,?,?,?,?,?)";
+    public static final String SQL_INSERTAR = "INSERT INTO entrenador VALUES (?,?,?,?,?)";
 
-    public static final String SQL_ACTUALIZAR = "UPDATE clientes SET nombre = ?, apellido = ?, email = ?, edad = ?, peso = ?, estatura = ? WHERE id = ?";
+    public static final String SQL_ACTUALIZAR = "UPDATE entrenador SET nombre = ?, apellido = ?, email = ?, password = ?WHERE id = ?";
 
-    public static final String SQL_ELIMINAR = "DELETE FROM clientes WHERE id = ?";
+    public static final String SQL_ELIMINAR = "DELETE FROM entrenador WHERE id = ?";
 
-    public static final String SQL_CONSULTAR_BY_ID = "SELECT nombre, apellido, email, edad, peso, estatura FROM clientes WHERE id = ?";
+    public static final String SQL_CONSULTAR_BY_ID = "SELECT nombre, apellido, email FROM entrenador WHERE id = ?";
 
     @Override
-    public List<entenador> consultar() {
+    public List<entrenador> consultar() {
 
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet res = null;
-        entrenador ent = null;
-        List<entrenador> entrenador = new ArrayList<>();
+        entrenador userEntrenador = null;
+        List<entrenador> usuarioEntrenador = new ArrayList<>();
         try {
             con = ConexionBD.getConnection();
             stmt = con.prepareStatement(SQL_CONSULTA);
@@ -42,11 +42,10 @@ public class entrenadorDAO implements entrenadorService {
                 String nombre = res.getString("nombre");
                 String apellido = res.getString("apellido");
                 String email = res.getString("email");
-                String edad = res.getString("edad");
-                String peso = res.getString("peso");
-                String estatura = res.getString("estatura");
-                entrenador  = new entrenador(nombre, apellido, email, edad, peso, estatura);
-                entrenador.add(ent);
+                String password = res.getString("password");
+
+                entrenador ent = new entrenador(nombre, apellido, email, password);
+                usuarioEntrenador.add(ent);
             }
         } catch (SQLException ex) {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,24 +58,25 @@ public class entrenadorDAO implements entrenadorService {
                 Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return mascotas;
+        return usuarioEntrenador;
     }
 
+
+
     @Override
-    public int crear(cliente mascota) {
+    public int crear(entrenador entrenador) {
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             con = ConexionBD.getConnection();
             stmt = con.prepareStatement(SQL_INSERTAR);
-            stmt.setString(1, mascota.getId());
-            stmt.setString(2, mascota.getNombre());
-            stmt.setString(3, mascota.getApellido());
-            stmt.setString(4, mascota.getEmail());
-            stmt.setString(5, mascota.getEdad());
-            stmt.setDouble(6,mascota.getPeso());
-            stmt.setDouble(7, mascota.getEstatura());
+            stmt.setInt(1, entrenador.getId());
+            stmt.setString(2, entrenador.getNombre());
+            stmt.setString(3, entrenador.getApellido());
+            stmt.setString(4, entrenador.getEmail());
+            stmt.setString(5, entrenador.getPassword());
+
 
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -94,20 +94,19 @@ public class entrenadorDAO implements entrenadorService {
     }
 
     @Override
-    public int actualizar(cliente user) {
+    public int actualizar(entrenador userEntrenador) {
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             con = ConexionBD.getConnection();
             stmt = con.prepareStatement(SQL_ACTUALIZAR);
-            stmt.setString(1, user.getId());
-            stmt.setString(2, user.getNombre());
-            stmt.setString(3, user.getApellido());
-            stmt.setString(4, user.getEmail());
-            stmt.setString(5, user.getEdad());
-            stmt.setDouble(6, user.getPeso());
-            stmt.setDouble(7, user.getEstatura());
+            stmt.setInt(1, userEntrenador.getId());
+            stmt.setString(2, userEntrenador.getNombre());
+            stmt.setString(3, userEntrenador.getApellido());
+            stmt.setString(4, userEntrenador.getEmail());
+            stmt.setString(5, userEntrenador.getPassword());
+
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -124,14 +123,14 @@ public class entrenadorDAO implements entrenadorService {
     }
 
     @Override
-    public int eliminar(cliente user) {
+    public int eliminar(entrenador user) {
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             con = ConexionBD.getConnection();
             stmt = con.prepareStatement(SQL_ELIMINAR);
-            stmt.setString(1, user.getId());
+            stmt.setInt(1, user.getId());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -146,25 +145,25 @@ public class entrenadorDAO implements entrenadorService {
         return registros;
     }
 
-    public cliente encontrar(cliente m) {
+    public entrenador encontrar(entrenador m) {
         Connection con = null;
         PreparedStatement sen = null;
         ResultSet res = null;
         try {
             con = ConexionBD.getConnection();
             sen = con.prepareStatement(SQL_CONSULTAR_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            sen.setString(1, m.getId());
+            sen.setInt(1, m.getId());
             res = sen.executeQuery();
             res.absolute(1);//primer registro devuelto
             String nombre = res.getString("nombre");
             String apellido = res.getString("apellido");
             String email = res.getString("email");
-            String edad = res.getString("edad");
+            
 
             m.setNombre(nombre);
             m.setApellido(apellido);
             m.setEmail(email);
-            m.setEdad(edad);
+
 
         }
         catch (SQLException ex) {
