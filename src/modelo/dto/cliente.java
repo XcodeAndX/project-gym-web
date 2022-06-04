@@ -35,6 +35,9 @@ public class cliente {
     public cliente(String nombre, String apellido, String email, String password, String edad, String peso, String estatura) {
     }
 
+    public cliente(int id) {
+    }
+
     public String getId() {
         return id;
     }

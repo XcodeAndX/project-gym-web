@@ -1,7 +1,6 @@
 package modelo.services;
 
 import modelo.dto.cliente;
-import modelo.dto.persona;
 
 import java.util.List;
 

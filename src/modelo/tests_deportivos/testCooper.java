@@ -1,7 +1,10 @@
 package modelo.tests_deportivos;
 
-public class testCooper {
+import modelo.dto.cliente;
 
+public class testCooper extends cliente {
+
+    public int id;
     public int oxigenoMaximo;
     public int kilometroReccorido;
 
@@ -10,7 +13,8 @@ public class testCooper {
         kilometroReccorido = 0;
     }
 
-    public testCooper(int oxigenoMaximo, int kilometroReccorido) {
+    public testCooper(int id, int oxigenoMaximo, int kilometroReccorido) {
+        super(id);
         this.oxigenoMaximo = oxigenoMaximo;
         this.kilometroReccorido = kilometroReccorido;
     }

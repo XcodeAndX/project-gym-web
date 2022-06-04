@@ -1,6 +1,5 @@
 package modelo.services;
 
-import modelo.dto.persona;
 import modelo.tests_deportivos.testCooper;
 
 import java.util.List;
