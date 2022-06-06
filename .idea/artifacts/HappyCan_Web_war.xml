@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="HappyCan_Web:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>HappyCan_Web</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="HappyCan_Web-1.0.war">
+      <element id="artifact" artifact-name="HappyCan_Web:war exploded" />
+    </root>
+  </artifact>
+</component>
